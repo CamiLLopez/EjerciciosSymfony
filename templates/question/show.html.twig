@@ -1,0 +1,21 @@
+{# extends añade estructura basica html y con block decimos donde queremos que sea añadida la porcion de codigo #}
+{% extends 'base.html.twig' %}
+{% block title %}question: {{question}}{% endblock %}
+
+{% block body %}
+<h1>{{question}}</h1>
+<div>
+    Aqui va a ir la pregunta luego!
+</div>
+
+<h2>Respuestas ({{ respuestas|length }})</h2>
+
+<ul>
+{% for respuesta in respuestas %}
+    <li>{{ respuesta }}</li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}
+
