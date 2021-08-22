@@ -5,16 +5,22 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 class QuestionController extends AbstractController
 {
     //esto es un annotation, se configura dentro de comentarios php
     /**
-     * @Route("/")
+     * @Route("/" , name="app_homepage")
      */
-    public function homepage()
+    public function homepage(Environment $twigEnvironment)
     {
-        return new Response('Hello word!');
+        /*Esto ultimo es lo mismo que usar la shortform render para obtener la respuesta
+        $html = $twigEnvironment->render('question/homepage.html.twig');
+        return new Response($html);
+
+        return new Response('Hello word!');*/
+        return $this->render('question/homepage.html.twig');
     }
 
     //creando una segunda ruta con una respuesta diferente
@@ -23,7 +29,7 @@ class QuestionController extends AbstractController
      */
     // una manera de hacer mas inteligente la respuesta con un comodin
     /**
-     * @Route("/question/{loquesea}")
+     * @Route("/question/{loquesea}", name="app_question_show")
      */
     public function show($loquesea)
     {
@@ -34,6 +40,11 @@ class QuestionController extends AbstractController
             'question' => ucwords(str_replace("-", " ", $loquesea)),
             'respuestas' => $respuestas
         ]);
+        /*es similar a var_dump y sirve para debugguear */
+        var_dump($loquesea);
+        dump($this);
+        dd($loquesea, $this);
+
 
     /*return new Response(sprintf(
             'Futura pagina para mostrar una pregunta "%s" !',
